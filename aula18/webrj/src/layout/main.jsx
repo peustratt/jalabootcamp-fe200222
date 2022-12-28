@@ -15,23 +15,22 @@ import DogDetails from '../pages/dogDetails'
 function Main() {
 
     return (
-        <div className='main-container flex'>
-            <Sidebar>
-                <div className='ml-1 secondary-container'>
-                    <Routes>
-                        <Route path='/' element={ <PrivateRoute authPath={ '/login' } outlet={ <Home /> }></PrivateRoute> } />
-                        <Route path='/home' element={ <Home /> } />
-                        <Route path='/add' element={ <AddDog /> } />
-                        <Route path='/list' element={ <ListDog /> } />
-                        <Route path='/news' element={ <News /> }>
-                            <Route path='special' element={ <h1>Special News here</h1> } />
-                        </Route>
-                        <Route path="/login" element={ <Signin /> } />
-                        <Route path="/dogs/:id" element={ <DogDetails />} />
-                        <Route path='*' element={ <h1>Page Not Found</h1> } />
-                    </Routes>
-                </div>
-            </Sidebar>
+        <div className='main-container flex h-full'>
+            <Sidebar />
+            <div className='ml-1 secondary-container'>
+                <Routes>
+                    <Route path='/' element={ <PrivateRoute authPath={ '/login' } outlet={ <Home /> }></PrivateRoute> } />
+                    <Route path='/home' element={ <Home /> } />
+                    <Route path='/add' element={ <AddDog /> } />
+                    <Route path='/list' element={ <ListDog /> } />
+                    <Route path='/news' element={ <News /> }>
+                        <Route path='special' element={ <h1>Special News here</h1> } />
+                    </Route>
+                    <Route path="/login" element={ <Signin /> } />
+                    <Route path="/dogs/:id" element={ <DogDetails />} />
+                    <Route path='*' element={ <h1>Page Not Found</h1> } />
+                </Routes>
+            </div>
         </div>)
 }
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import DogCheckBox from "./dogCheckBox";
-import { deleteDog } from "../services/dogService";
 
 const DogCard = ({ dog, handleDelete }) => {
   let adoption = false;
@@ -22,14 +21,6 @@ const DogCard = ({ dog, handleDelete }) => {
       break;
   }
 
-  const deleteDogHandler = async (id) => {
-    try {
-      await deleteDog(id);
-      handleDelete(id);
-    } catch (error) {
-      alert(error);
-    }
-  };
 
   return (
     <div className="w-full flex flex-col items-center bg-white p-4 rounded-md shadow-md font-sans">
@@ -94,19 +85,19 @@ const DogCard = ({ dog, handleDelete }) => {
           <DogCheckBox text="Adoption" transaction={adoption} />
           <DogCheckBox text="Sell" transaction={sell} />
         </div>
-        <div className="wrapper w-full flex justify-between gap-3 mt-1">
+        <div className="wrapper w-full flex justify-end gap-3 mt-1">
           <Link
             className="text-[14px] bg-[#B6A750] py-2 px-4 rounded-md text-white visited:text-white"
             to={`/dogs/${dog._id}`}
           >
             Details
           </Link>
-          <button
+          {/* <button
             className="text-[14px] bg-red-400 py-2 px-4 rounded-md text-white visited:text-white border-none"
             onClick={() => deleteDogHandler(dog._id)}
           >
             Delete
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

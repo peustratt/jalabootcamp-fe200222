@@ -30,12 +30,12 @@ const Sidebar = ({ setPage, children }) => {
 
     return (
         <>
-            <div onMouseEnter={ openSideBar } onMouseLeave={ openSideBar } className={ sideBarAction(isOpen) }>
-                <div className='ml-3 mr-3 flex flex-column'>
+            <div onMouseEnter={ openSideBar } onMouseLeave={ openSideBar } className={ sideBarAction(isOpen) + 'min-h-full' }>
+                <div className='ml-3 mr-3 flex flex-col h-full'>
                     { isOpen && (
                         <>
-                            <div className='mt-4 center-itens'>
-                                <h2>Doggy shop</h2>
+                            <div className='mt-1 center-itens'>
+                                <h3 className='font-sans font-semibold'>Doggy shop</h3>
                             </div>
                             <div className='h-line' />
                             { routes.map((route, index) => {

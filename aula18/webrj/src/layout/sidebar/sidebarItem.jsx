@@ -11,8 +11,8 @@ const SidebarItem = ({ route, index, setPage }) => {
 
     return (
         <>
-            <div className='item-hover center-itens mt-4' onClick={ () => clickHandler() }>
-                <h3 className='max-width'>{ route.page }</h3>
+            <div className='item-hover center-itens my-4' onClick={ () => clickHandler() }>
+                <h3 className='font-sans max-width text-[16px] m-0'>{ route.page }</h3>
             </div>
             <div className='h-line' />
         </>

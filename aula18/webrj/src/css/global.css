@@ -3,6 +3,10 @@
     box-sizing: border-box;
 }
 
+:root{
+    height: 100%;
+}
+
 body {
     background-color: rgba(150, 127, 0, 0.685);
     font-familt: 'Sans-ui, sans-serif, Roboto, Arial, Helvetica, sans-serif';
@@ -31,8 +35,9 @@ a:visited {
 .main-container {
     margin: 0;
     padding: 2px;
+    padding-bottom: 24px;
     background-color: rgb(241, 238, 215);
-    height: 630px;
+    height: min-content;
 
 }
 
@@ -63,7 +68,8 @@ a:visited {
 }
 
 .h-line {
-    height: 5px;
+    border-radius: 5px;
+    height: 4px;
     width: 100%;
     background-color: rgba(150, 127, 0, 0.685);
 }
