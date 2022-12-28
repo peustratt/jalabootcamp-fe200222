@@ -45,3 +45,16 @@ export const getDogById = {
     });
   },
 };
+
+export const DeleteDog = {
+  path: "/api/dogs/:id",
+  method: "delete",
+  handler: async (req, res, next) => {
+    const id = ObjectId(req.params.id);
+    const db = getDbConnection(process.env.DB_NAME);
+    await db.collection("dogs").deleteOne({ _id: id }, (err, result) => {
+      if (err) return next(err);
+      res.status(200).send(result);
+    });
+  },
+};
