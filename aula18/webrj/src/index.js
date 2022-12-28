@@ -7,9 +7,9 @@ import '../src/css/tailwind.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Router>
       <Main />
     </Router>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

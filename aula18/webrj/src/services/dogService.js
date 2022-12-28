@@ -33,4 +33,15 @@ const getDogById = async (id) => {
   }
 };
 
-export { addNewDog, getAllDogs, getDogById };
+const deleteDog = async (id) => {
+  try {
+    const response = await fetch(`${url}/${id}`, {
+      method: "delete",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log("Error on delete dog fetch", error);
+  }
+};
+
+export { addNewDog, getAllDogs, getDogById, deleteDog };

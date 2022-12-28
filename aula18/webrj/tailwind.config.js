@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        cards: "repeat(auto-fill, minmax(250px, 1fr))",
+        cards: "repeat(auto-fill, minmax(200px, 1fr))",
       },
     },
   },
