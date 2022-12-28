@@ -6,7 +6,7 @@ export const addNewDog = {
   path: "/api/dogs",
   method: "post",
   handler: async (req, res) => {
-    const { name, age, breed, transaction, image } = req.body;
+    const { name, age, breed, transaction, image, description } = req.body;
     const db = getDbConnection(process.env.DB_NAME);
     const result = await db.collection("dogs").insertOne({
       name,
@@ -14,6 +14,7 @@ export const addNewDog = {
       breed,
       transaction,
       image,
+      description,
     });
     res.status(200).json(result);
   },

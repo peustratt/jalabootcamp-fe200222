@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { addNewDog } from '../services/dogService'
 
 function AddDog() {
-    const defaultDog = { name: '', age: '', breed: '', transaction: '', image: '' }
+    const defaultDog = { name: '', age: '', breed: '', transaction: '', image: '', description: '' }
     const [dog, setDog] = useState({ ...defaultDog })
 
     function saveNewDog() {
@@ -37,6 +37,13 @@ function AddDog() {
                     type="text"
                     value={ dog.breed }
                     onChange={ (event) => setDog({ ...dog, breed: event.target.value }) }
+                />
+                <textarea className='text-field'
+                    label="image"
+                    placeholder='description'
+                    type="text"
+                    value={ dog.description }
+                    onChange={ (event) => setDog({ ...dog, description: event.target.value }) }
                 />
                 <select value={ dog.transaction } name='Adoption' className='text-field' onChange={ (event) => setDog({ ...dog, transaction: event.target.value }) }>
                     <option value="">--Choose an option--</option>
