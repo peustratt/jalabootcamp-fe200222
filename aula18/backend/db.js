@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 let client;
 
 export const initializeDbConnection = async () => {
-  client = new MongoClient(process.env.URI_DB, {
+  client = new MongoClient('mongodb+srv://peustratt:yAVKqq4RFko2G6zx@cluster0.hflevvn.mongodb.net/?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

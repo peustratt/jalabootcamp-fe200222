@@ -1,5 +1,11 @@
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
     background-color: rgba(150, 127, 0, 0.685);
+    font-familt: 'Sans-ui, sans-serif, Roboto, Arial, Helvetica, sans-serif';
 }
 
 a {
@@ -124,3 +130,4 @@ a:visited {
     width: 300px;
     margin-top: 100px;
 }
+

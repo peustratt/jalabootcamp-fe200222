@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { addNewDog } from '../services/dogService'
 
 function AddDog() {
-    const defaultDog = { name: '', age: '', breed: '', transaction: '' }
+    const defaultDog = { name: '', age: '', breed: '', transaction: '', image: '' }
     const [dog, setDog] = useState({ ...defaultDog })
 
     function saveNewDog() {
@@ -44,6 +44,13 @@ function AddDog() {
                     <option value='Sell'>Sell</option>
                     <option value='Both'>Both</option>
                 </select>
+                <input className='text-field'
+                    label="image"
+                    placeholder='https://www.example.com/image.jpg'
+                    type="text"
+                    value={ dog.image }
+                    onChange={ (event) => setDog({ ...dog, image: event.target.value }) }
+                />
                 <button onClick={ () => saveNewDog() } className='btn mt-5'>Save</button>
             </div>
         </div>)

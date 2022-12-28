@@ -9,6 +9,7 @@ import AddDog from '../pages/addDog'
 import ListDog from '../pages/listDog'
 import News from '../pages/news'
 import Signin from '../pages/signIn'
+import DogDetails from '../pages/dogDetails'
 
 
 function Main() {
@@ -26,6 +27,7 @@ function Main() {
                             <Route path='special' element={ <h1>Special News here</h1> } />
                         </Route>
                         <Route path="/login" element={ <Signin /> } />
+                        <Route path="/dogs/:id" element={ <DogDetails />} />
                         <Route path='*' element={ <h1>Page Not Found</h1> } />
                     </Routes>
                 </div>
