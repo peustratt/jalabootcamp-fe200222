@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../css/global.css'
 import Sidebar from './sidebar/sidebar'
 import { Routes, Route } from 'react-router-dom'
