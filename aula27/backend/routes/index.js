@@ -1,7 +1,25 @@
-import { testRoute } from './test.js';
-import { addNewDog, getAllDogs } from './dogs.js';
-import { signup, signin } from './auth.js';
-import verifyEmailCode from './email.js';
-import { getAllUsers, createUser, getUser, updateUser } from './users.js';
+import { testRoute } from "./test.js";
+import { addNewDog, getAllDogs } from "./dogs.js";
+import { signup, signin } from "./auth.js";
+import verifyEmailCode from "./email.js";
+import {
+  getAllUsers,
+  createUser,
+  getUser,
+  updateUser,
+  deleteUser,
+} from "./users.js";
 
-export const routes = [testRoute, addNewDog, getAllDogs, signup, signin, verifyEmailCode, getAllUsers, createUser, getUser, updateUser];
+export const routes = [
+  testRoute,
+  addNewDog,
+  getAllDogs,
+  signup,
+  signin,
+  verifyEmailCode,
+  getAllUsers,
+  createUser,
+  getUser,
+  updateUser,
+  deleteUser,
+];

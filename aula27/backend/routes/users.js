@@ -52,3 +52,14 @@ export const updateUser = {
     res.status(200).json({ _id: id, name, email, type });
   },
 };
+
+export const deleteUser = {
+  path: "/api/users/:id",
+  method: "delete",
+  handler: async (req, res) => {
+    const db = getDbConnection(process.env.DB_NAME);
+    const { id } = req.params;
+    await db.collection("users").deleteOne({ _id: ObjectId(id) });
+    res.status(204).send();
+  },
+};
