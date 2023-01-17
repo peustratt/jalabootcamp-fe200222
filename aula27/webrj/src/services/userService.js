@@ -1,19 +1,16 @@
 const url = "http://localhost:8080/api/users";
 
 const createUser = async (body) => {
-  try {
-    const response = await fetch(url, {
-      method: "post",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    return await response.json();
-  } catch (error) {
-    console.log("Error on creating new person from admin", error);
-  }
+  const response = await fetch(url, {
+    method: "post",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return await response.json();
 };
 
 const getUsers = async () => {
@@ -21,5 +18,4 @@ const getUsers = async () => {
   return await response.json();
 };
 
-export default createUser;
-export { getUsers };
+export { getUsers, createUser };

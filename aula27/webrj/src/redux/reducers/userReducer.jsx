@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUsers } from "../../services/userService";
+import { getUsers, createUser } from "../../services/userService";
 
 export const userSlice = createSlice({
   name: "user",
@@ -12,6 +12,9 @@ export const userSlice = createSlice({
     remove: (state, user) => {
       state = state.filter((u) => u.id !== user.payload.id);
     },
+    clearStatus: (state) => {
+      state.status = "idle";
+    }, 
   },
   extraReducers: (builder) => {
     builder.addCase(loadUsersThunk.pending, (state) => {
@@ -23,7 +26,20 @@ export const userSlice = createSlice({
     });
     builder.addCase(loadUsersThunk.rejected, (state, action) => {
       state.status = "failed";
-      state.error = action.error.message;
+      state.error = action.error;
+    });
+
+    builder.addCase(createUserThunk.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(createUserThunk.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.users = state.users.concat(action.payload);
+      console.log("Users inside action", action.payload);
+    });
+    builder.addCase(createUserThunk.rejected, (state, action) => {
+      state.status = "failed";
+      state.error = action.error;
     });
   },
 });
@@ -41,5 +57,16 @@ export const loadUsersThunk = createAsyncThunk("users/load", async () => {
   return users;
 });
 
-export const { add, remove } = userSlice.actions;
+export const createUserThunk = createAsyncThunk(
+  "users/create",
+  async (user) => {
+    const users = await createUser(user);
+    return users;
+  }
+);
+
+export const selectUsers = (state) => state.users.users;
+export const selectStatus = (state) => state.users.status;
+
+export const { add, remove, clearStatus } = userSlice.actions;
 export default userSlice.reducer;

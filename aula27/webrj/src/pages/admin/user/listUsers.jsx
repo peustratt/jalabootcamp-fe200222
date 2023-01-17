@@ -1,23 +1,26 @@
 import React from 'react'
-import { loadUsersThunk } from '../../../redux/reducers/userReducer'
+import { loadUsersThunk, selectUsers, selectStatus, clearStatus } from '../../../redux/reducers/userReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
 
 const ListUsers = () => {
     const dispatch = useDispatch()
-    const users = useSelector((state) => state.users.users)
-    const status = useSelector((state) => state.users.status)
+    const users = useSelector(selectUsers)
+    const status = useSelector(selectStatus)
     console.log(status)
 
     useEffect(() => {
+        dispatch(clearStatus())
+    }, [dispatch])
+
+    useEffect(() => {
         dispatch(loadUsersThunk())
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         console.log('Users in Users page', users)
     }, [users])
-
 
     return (<div className='ml-5 mt-5'>
         <h1>Registered Users</h1>
