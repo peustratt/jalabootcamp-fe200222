@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUsers, createUser, deleteUser } from "../../services/userService";
+import {
+  getUsers,
+  createUser,
+  deleteUser,
+  updateUser,
+} from "../../services/userService";
 
 export const userSlice = createSlice({
   name: "user",
@@ -56,7 +61,24 @@ export const userSlice = createSlice({
     builder.addCase(deleteUserThunk.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.error;
-      console.log(action)
+      console.log(action);
+    });
+    // updateUserThunk
+    builder.addCase(updateUserThunk.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(updateUserThunk.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.users = state.users.map((user) => {
+        if (user._id === action.payload._id) {
+          return action.payload;
+        }
+        return user;
+      });
+    });
+    builder.addCase(updateUserThunk.rejected, (state, action) => {
+      state.status = "failed";
+      state.error = action.error;
     });
   },
 });
@@ -77,8 +99,8 @@ export const loadUsersThunk = createAsyncThunk("users/load", async () => {
 export const createUserThunk = createAsyncThunk(
   "users/create",
   async (user) => {
-    const users = await createUser(user);
-    return users;
+    const newUser = await createUser(user);
+    return newUser;
   }
 );
 
@@ -86,6 +108,14 @@ export const deleteUserThunk = createAsyncThunk("users/delete", async (id) => {
   await deleteUser(id);
   return id;
 });
+
+export const updateUserThunk = createAsyncThunk(
+  "users/update",
+  async (user) => {
+    console.log("updated", user);
+    return await updateUser(user._id, user);
+  }
+);
 
 export const selectUsers = (state) => state.users.users;
 export const selectStatus = (state) => state.users.status;

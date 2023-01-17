@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../services/userService";
+import {
+  selectStatus,
+  clearStatus,
+  updateUserThunk,
+} from "../redux/reducers/userReducer";
 
 const EditUserModal = ({ id, setEditModal }) => {
   const [user, setUser] = useState({
@@ -9,32 +14,30 @@ const EditUserModal = ({ id, setEditModal }) => {
     type: "",
   });
   const dispatch = useDispatch();
+  const status = useSelector(selectStatus);
 
   useEffect(() => {
-    // fetch user data
     const init = async () => {
       try {
         const data = await getUser(id);
-        console.log(data);
         setUser(data);
       } catch {
         alert("Could not load user");
       }
     };
+    dispatch(clearStatus());
     init();
-  }, []);
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (status === "succeeded") {
+      setEditModal({ isOpen: false, id: null });
+    }
+  }, [status]);
 
   const submit = (e) => {
     e.preventDefault();
-    setEditModal({ isOpen: false, id: null });
-    // dispatch(
-    //   createUserThunk({
-    //     name: name.current.value,
-    //     email: email.current.value,
-    //     type: type.current.value,
-    //     isVerified: false,
-    //   })
-    // );
+    dispatch(updateUserThunk({ ...user, _id: id }));
   };
 
   return (
@@ -47,6 +50,7 @@ const EditUserModal = ({ id, setEditModal }) => {
         className="flex flex-col justify-center items-center gap-4 w-1/2 max-w-[400px] min-w-[200px] bg-[rgba(150,127,0,0.685)] z-10 p-4 rounded-md"
         onSubmit={submit}
       >
+        <div>{status}</div>
         <input
           value={user.name}
           onChange={(e) => setUser({ ...user, name: e.target.value })}
@@ -77,9 +81,12 @@ const EditUserModal = ({ id, setEditModal }) => {
           <button className="btn mt-5 text-white font-semibold hover:text-black rounded-sm border-2 border-white hover:border-green-400 hover:text-green-400 w-full max-w-[200px]">
             Edit
           </button>
-          <button className="btn mt-5 text-white font-semibold hover:text-black rounded-sm border-2 border-white hover:border-red-400 hover:text-red-400 w-full max-w-[200px]">
+          <span
+            onClick={() => setEditModal({ isOpen: false, id: null })}
+            className="btn mt-5 flex justify-center items-center text-white font-semibold hover:text-black rounded-sm border-2 border-white hover:border-red-400 hover:text-red-400 w-full max-w-[200px]"
+          >
             Cancel
-          </button>
+          </span>
         </div>
       </form>
     </div>
