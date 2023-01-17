@@ -23,6 +23,7 @@ export const getUser = {
     const db = getDbConnection(process.env.DB_NAME);
     const { id } = req.params;
     const user = await db.collection("users").findOne({ _id: ObjectId(id) });
+    if (!user) return res.status(404).send("User not found");
     res.status(200).json(user);
   },
 };
@@ -45,10 +46,9 @@ export const updateUser = {
     const db = getDbConnection(process.env.DB_NAME);
     const { id } = req.params;
     const { name, email, type } = req.body;
-    await db.collection("users").updateOne(
-      { _id: ObjectId(id) },
-      { $set: { name, email, type } }
-    );
+    await db
+      .collection("users")
+      .updateOne({ _id: ObjectId(id) }, { $set: { name, email, type } });
     res.status(200).json({ _id: id, name, email, type });
   },
 };
