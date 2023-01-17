@@ -26,6 +26,7 @@ const ListUsers = () => {
   }, [dispatch]);
 
   const handleEditModal = (id) => {
+    dispatch(clearStatus());
     setEditModal({ isOpen: true, id: id });
   };
 

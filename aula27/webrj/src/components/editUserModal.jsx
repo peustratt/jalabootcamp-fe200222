@@ -25,9 +25,8 @@ const EditUserModal = ({ id, setEditModal }) => {
         alert("Could not load user");
       }
     };
-    dispatch(clearStatus());
     init();
-  }, [dispatch, id]);
+  }, [id]);
 
   useEffect(() => {
     if (status === "succeeded") {
