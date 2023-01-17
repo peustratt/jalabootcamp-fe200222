@@ -1,5 +1,5 @@
 import React from 'react'
-import { loadUsersThunk, selectUsers, selectStatus, clearStatus } from '../../../redux/reducers/userReducer'
+import { loadUsersThunk, selectUsers, selectStatus, clearStatus, remove, deleteUserThunk } from '../../../redux/reducers/userReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
@@ -8,7 +8,7 @@ const ListUsers = () => {
     const dispatch = useDispatch()
     const users = useSelector(selectUsers)
     const status = useSelector(selectStatus)
-    console.log(status)
+    // console.log(status)
 
     useEffect(() => {
         dispatch(clearStatus())
@@ -18,9 +18,9 @@ const ListUsers = () => {
         dispatch(loadUsersThunk())
     }, [dispatch])
 
-    useEffect(() => {
-        console.log('Users in Users page', users)
-    }, [users])
+    // useEffect(() => {
+    //     console.log('Users in Users page', users)
+    // }, [users])
 
     return (<div className='ml-5 mt-5'>
         <h1>Registered Users</h1>
@@ -33,6 +33,7 @@ const ListUsers = () => {
                         <p>{ user._id }</p>
                         <p>{ user.name }</p>
                         <p>{ user.name }</p>
+                        <button onClick={() => dispatch(deleteUserThunk(user._id))}>delete</button>
                     </div>)
             }) }
         </div>

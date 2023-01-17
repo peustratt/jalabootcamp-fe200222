@@ -18,4 +18,14 @@ const getUsers = async () => {
   return await response.json();
 };
 
-export { getUsers, createUser };
+const deleteUser = async (id) => {
+  const response = await fetch(`${url}/${id}`, {
+    method: "delete",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  return response.ok;
+};
+
+export { getUsers, createUser, deleteUser };

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUsers, createUser } from "../../services/userService";
+import { getUsers, createUser, deleteUser } from "../../services/userService";
 
 export const userSlice = createSlice({
   name: "user",
@@ -10,13 +10,17 @@ export const userSlice = createSlice({
       state.users = state.users.concat(users.payload);
     },
     remove: (state, user) => {
-      state = state.filter((u) => u.id !== user.payload.id);
+      state.users = state.users.filter((u) => {
+        console.log("u._id", u._id !== user.payload);
+        return u._id !== user.payload;
+      });
     },
     clearStatus: (state) => {
       state.status = "idle";
-    }, 
+    },
   },
   extraReducers: (builder) => {
+    // loadUsersThunk
     builder.addCase(loadUsersThunk.pending, (state) => {
       state.status = "loading";
     });
@@ -28,7 +32,7 @@ export const userSlice = createSlice({
       state.status = "failed";
       state.error = action.error;
     });
-
+    // createUserThunk
     builder.addCase(createUserThunk.pending, (state) => {
       state.status = "loading";
     });
@@ -40,6 +44,19 @@ export const userSlice = createSlice({
     builder.addCase(createUserThunk.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.error;
+    });
+    // deleteUserThunk
+    builder.addCase(deleteUserThunk.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(deleteUserThunk.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.users = state.users.filter((user) => user._id !== action.payload);
+    });
+    builder.addCase(deleteUserThunk.rejected, (state, action) => {
+      state.status = "failed";
+      state.error = action.error;
+      console.log(action)
     });
   },
 });
@@ -64,6 +81,11 @@ export const createUserThunk = createAsyncThunk(
     return users;
   }
 );
+
+export const deleteUserThunk = createAsyncThunk("users/delete", async (id) => {
+  await deleteUser(id);
+  return id;
+});
 
 export const selectUsers = (state) => state.users.users;
 export const selectStatus = (state) => state.users.status;
