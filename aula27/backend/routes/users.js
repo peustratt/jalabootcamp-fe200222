@@ -59,6 +59,8 @@ export const deleteUser = {
   handler: async (req, res) => {
     const db = getDbConnection(process.env.DB_NAME);
     const { id } = req.params;
+    const user = await db.collection("users").findOne({ _id: ObjectId(id) });
+    if (!user) return res.status(404).send("User not found");
     await db.collection("users").deleteOne({ _id: ObjectId(id) });
     res.status(204).send();
   },

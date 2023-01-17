@@ -1,5 +1,5 @@
 import React from 'react'
-import { loadUsersThunk, selectUsers, selectStatus, clearStatus, remove, deleteUserThunk } from '../../../redux/reducers/userReducer'
+import { loadUsersThunk, selectUsers, selectStatus, clearStatus, deleteUserThunk } from '../../../redux/reducers/userReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
