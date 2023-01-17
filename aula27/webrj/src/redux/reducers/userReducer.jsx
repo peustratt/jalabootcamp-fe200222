@@ -1,33 +1,32 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getUsers } from "../../services/userService"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getUsers } from "../../services/userService";
 
 export const userSlice = createSlice({
-    name: "user",
-    initialState: { users: [], status: 'idle', error: null },
-    reducers: {
-        add: (state, users) => {
-            console.log('Users inside action', users)
-            state.users = state.users.concat(users.payload)
-        },
-        remove: (state, user) => {
-            state = state.filter((u) => u.id !== user.payload.id)
-        }
+  name: "user",
+  initialState: { users: [], status: "idle", error: null },
+  reducers: {
+    add: (state, users) => {
+      console.log("Users inside action", users);
+      state.users = state.users.concat(users.payload);
     },
-    extraReducers: builder => {
-        builder.addCase(loadUsersThunk.pending, state => {
-            state.status = 'loading'
-        })
-        builder.addCase(loadUsersThunk.fulfilled, (state, action) => {
-            state.status = 'succeeded'
-            state.users = action.payload
-        })
-        builder.addCase(loadUsersThunk.rejected, (state, action) => {
-            state.status = 'failed'
-            state.error = action
-        })
-    }
-})
-
+    remove: (state, user) => {
+      state = state.filter((u) => u.id !== user.payload.id);
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadUsersThunk.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(loadUsersThunk.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.users = action.payload;
+    });
+    builder.addCase(loadUsersThunk.rejected, (state, action) => {
+      state.status = "failed";
+      state.error = action.error.message;
+    });
+  },
+});
 
 // {
 // Multiple possible status enum values
@@ -36,17 +35,11 @@ export const userSlice = createSlice({
 // type : pending | fulfilled | rejected
 // }
 
-export const loadUsersThunk = createAsyncThunk('users/load', async () => {
-    try {
-        const users = await getUsers()
-        return users
-    } catch (error) {
-        console.log(error)
-        return error
-    }
-})
+// Alredy takes care of pending, fulfilled and rejected action types, dispensing the use o try catch to handle errors
+export const loadUsersThunk = createAsyncThunk("users/load", async () => {
+  const users = await getUsers();
+  return users;
+});
 
-
-
-export const { add, remove } = userSlice.actions
-export default userSlice.reducer
+export const { add, remove } = userSlice.actions;
+export default userSlice.reducer;

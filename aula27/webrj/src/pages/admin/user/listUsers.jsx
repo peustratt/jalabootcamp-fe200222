@@ -7,6 +7,8 @@ import { useEffect } from 'react'
 const ListUsers = () => {
     const dispatch = useDispatch()
     const users = useSelector((state) => state.users.users)
+    const status = useSelector((state) => state.users.status)
+    console.log(status)
 
     useEffect(() => {
         dispatch(loadUsersThunk())
@@ -19,6 +21,7 @@ const ListUsers = () => {
 
     return (<div className='ml-5 mt-5'>
         <h1>Registered Users</h1>
+        <p>{ status }</p>
         <div className='flex flex-column mt-5 overflow-y container-500'>
             { users?.map((user, index) => {
                 return (
