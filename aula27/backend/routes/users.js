@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import { ObjectId } from "mongodb";
 import { getDbConnection } from "../db.js";
 
 export const getAllUsers = {
@@ -12,6 +13,17 @@ export const getAllUsers = {
       .toArray((err, result) => {
         res.status(200).send(result);
       });
+  },
+};
+
+export const getUser = {
+  path: "/api/users/:id",
+  method: "get",
+  handler: async (req, res) => {
+    const db = getDbConnection(process.env.DB_NAME);
+    const { id } = req.params;
+    const user = await db.collection("users").findOne({ _id: ObjectId(id) });
+    res.status(200).json(user);
   },
 };
 
