@@ -37,3 +37,18 @@ export const createUser = {
     res.status(201).json({ _id: data.insertedId, name, email, type });
   },
 };
+
+export const updateUser = {
+  path: "/api/users/:id",
+  method: "put",
+  handler: async (req, res) => {
+    const db = getDbConnection(process.env.DB_NAME);
+    const { id } = req.params;
+    const { name, email, type } = req.body;
+    await db.collection("users").updateOne(
+      { _id: ObjectId(id) },
+      { $set: { name, email, type } }
+    );
+    res.status(200).json({ _id: id, name, email, type });
+  },
+};
