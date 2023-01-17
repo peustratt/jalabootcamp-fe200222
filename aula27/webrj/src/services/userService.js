@@ -18,6 +18,11 @@ const getUsers = async () => {
   return await response.json();
 };
 
+const getUser = async (id) => {
+  const response = await fetch(`${url}/${id}`);
+  return await response.json();
+};
+
 const deleteUser = async (id) => {
   const response = await fetch(`${url}/${id}`, {
     method: "delete",
@@ -28,4 +33,4 @@ const deleteUser = async (id) => {
   return response.ok;
 };
 
-export { getUsers, createUser, deleteUser };
+export { getUsers, createUser, deleteUser, getUser };
