@@ -39,6 +39,22 @@ const EditUserModal = ({ id, setEditModal }) => {
     dispatch(updateUserThunk({ ...user, _id: id }));
   };
 
+  let statusColor = "text-gray-500";
+
+  switch (status) {
+    case "loading":
+      statusColor = "text-yellow-500";
+      break;
+    case "succeeded":
+      statusColor = "text-green-500";
+      break;
+    case "failed":
+      statusColor = "text-red-500";
+      break;
+    default:
+      statusColor = "text-gray-500";
+  }
+
   return (
     <div className="fixed flex justify-center items-center inset-0">
       <div
@@ -49,7 +65,10 @@ const EditUserModal = ({ id, setEditModal }) => {
         className="flex flex-col justify-center items-center gap-4 w-1/2 max-w-[400px] min-w-[200px] bg-[rgba(150,127,0,0.685)] z-10 p-4 rounded-md"
         onSubmit={submit}
       >
-        <div>{status}</div>
+        <div>
+          <p className="font-bold">Status:</p>
+          <p className={statusColor + " font-bold"}>{status}</p>
+        </div>
         <input
           value={user.name}
           onChange={(e) => setUser({ ...user, name: e.target.value })}

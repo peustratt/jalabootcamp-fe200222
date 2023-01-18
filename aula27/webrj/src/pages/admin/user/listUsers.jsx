@@ -30,6 +30,22 @@ const ListUsers = () => {
     setEditModal({ isOpen: true, id: id });
   };
 
+  let statusColor = "text-gray-500";
+
+  switch (status) {
+    case "loading":
+      statusColor = "text-yellow-500";
+      break;
+    case "succeeded":
+      statusColor = "text-green-500";
+      break;
+    case "failed":
+      statusColor = "text-red-500";
+      break;
+    default:
+      statusColor = "text-gray-500";
+  }
+
   // useEffect(() => {
   //     console.log('Users in Users page', users)
   // }, [users])
@@ -37,7 +53,10 @@ const ListUsers = () => {
   return (
     <div className="ml-5 mt-5">
       <h1>Registered Users</h1>
-      <p>{status}</p>
+      <div>
+        <p className="font-bold">Status:</p>
+        <p className={statusColor + " font-bold"}>{status}</p>
+      </div>
       <div className="flex flex-column mt-5 overflow-y container-500">
         {users?.map((user, index) => {
           return (
@@ -54,7 +73,9 @@ const ListUsers = () => {
           );
         })}
       </div>
-      {editModal.isOpen && <EditUserModal id={editModal.id} setEditModal={setEditModal} />}
+      {editModal.isOpen && (
+        <EditUserModal id={editModal.id} setEditModal={setEditModal} />
+      )}
     </div>
   );
 };

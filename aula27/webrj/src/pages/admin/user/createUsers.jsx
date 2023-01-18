@@ -29,10 +29,29 @@ const CreateUsers = () => {
     );
   };
 
+  let statusColor = "text-gray-500";
+
+  switch (status) {
+    case "loading":
+      statusColor = "text-yellow-500";
+      break;
+    case "succeeded":
+      statusColor = "text-green-500";
+      break;
+    case "failed":
+      statusColor = "text-red-500";
+      break;
+    default:
+      statusColor = "text-gray-500";
+  }
+
   return (
     <div className="ml-5 mt-5">
       <h1>Add new Person</h1>
-      <h2>{status}</h2>
+      <div>
+        <p className="font-bold">Status:</p>
+        <p className={statusColor + " font-bold"}>{status}</p>
+      </div>
       <article>
         Here you can create an user and set it's type. The user will still need
         to validate it's access through e-mail confirmation

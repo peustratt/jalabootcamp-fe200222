@@ -43,7 +43,7 @@ const Sidebar = ({ setPage, children }) => {
                 <div className='ml-3 mr-3 flex flex-column'>
                     { isOpen && (
                         <>
-                            <div className='mt-4 center-itens'>
+                            <div className='my-4 center-itens'>
                                 <h2>Doggy shop</h2>
                             </div>
                             <div className='h-line' />
