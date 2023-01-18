@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../services/userService";
 import {
   selectStatus,
-  clearStatus,
   updateUserThunk,
 } from "../redux/reducers/userReducer";
 
@@ -101,7 +100,7 @@ const EditUserModal = ({ id, setEditModal }) => {
           </button>
           <span
             onClick={() => setEditModal({ isOpen: false, id: null })}
-            className="btn mt-5 flex justify-center items-center text-white font-semibold hover:text-black rounded-sm border-2 border-white hover:border-red-400 hover:text-red-400 w-full max-w-[200px]"
+            className="btn mt-5 flex justify-center items-center text-white font-semibold hover:text-black rounded-sm border-2 border-white hover:cursor-pointer hover:border-red-400 hover:text-red-400 w-full max-w-[200px]"
           >
             Cancel
           </span>
